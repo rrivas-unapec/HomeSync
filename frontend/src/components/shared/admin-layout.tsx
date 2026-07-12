@@ -100,7 +100,7 @@ export function AdminLayout() {
             onClick={() => {
               setMenuOpen((open) => !open)
             }}
-            className="flex h-8 w-8 cursor-pointer items-center justify-center border border-border-control text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground hover:text-foreground motion-reduce:transition-none lg:hidden"
+            className="flex h-8 w-8 cursor-pointer items-center justify-center text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground motion-reduce:transition-none lg:hidden"
           >
             {menuOpen ? (
               <X className="h-4 w-4" aria-hidden="true" />

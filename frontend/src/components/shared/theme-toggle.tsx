@@ -18,7 +18,7 @@ export function ThemeToggle() {
       onClick={() => {
         setPreference(goingDark ? 'dark' : 'light')
       }}
-      className="flex h-7 w-7 cursor-pointer items-center justify-center border border-border-control text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground hover:text-foreground motion-reduce:transition-none"
+      className="flex h-7 w-7 cursor-pointer items-center justify-center text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground motion-reduce:transition-none"
     >
       <Icon className="h-3.5 w-3.5" aria-hidden="true" />
     </button>
