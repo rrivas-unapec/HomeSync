@@ -85,7 +85,7 @@ Copia `frontend/.env.example` a `frontend/.env` y apunta `VITE_API_BASE_URL` a t
 
 ```bash
 dotnet build backend/HomeSync.sln
-dotnet run --project backend/UrbanSync.Api --launch-profile http
+dotnet run --project backend/HomeSync.Api --launch-profile http
 ```
 
 Usa el perfil `http`. Con el perfil `https`, `UseHttpsRedirection()` redirige a `https://localhost:7261` y el frontend no podra conectarse.
@@ -108,7 +108,7 @@ Sin ella, **eliminar una propiedad falla** (ver «Defectos conocidos», punto 1)
 
 ### Backend
 
-Cuatro capas: `UrbanSync.Api` (controladores) → `UrbanSync.Business` (servicios, DTOs) → `UrbanSync.DataAccess` (EF Core, repositorios) → `UrbanSync.Domain` (entidades).
+Cuatro capas: `HomeSync.Api` (controladores) → `HomeSync.Business` (servicios, DTOs) → `HomeSync.DataAccess` (EF Core, repositorios) → `HomeSync.Domain` (entidades).
 
 Autenticacion por **JWT Bearer** (sin cookies, sin refresh token). Contrasenas con BCrypt. Es *Database First*: no hay migraciones de EF, el esquema se mantiene a mano.
 
@@ -189,4 +189,3 @@ Se reportan sin tocarlos, porque cambiarlos altera el comportamiento del API:
 
 - **Sin modo oscuro.** El diseno define los tokens, pero nunca activa la clase `dark` ni incluye un conmutador. Los colores son semanticos, asi que anadirlo despues es aditivo.
 - **La auditoria es de solo lectura** y solo cubre propiedades: es lo unico que el backend registra.
-- **`backend/HomeSync.Api/` es un scaffold huerfano** que quedo del despliegue inicial: no esta referenciado por `HomeSync.sln` y no se compila. Conviene eliminarlo.

@@ -2,14 +2,14 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY HomeSync.sln ./
-COPY UrbanSync.Domain/HomeSync.Domain.csproj UrbanSync.Domain/
-COPY UrbanSync.DataAccess/HomeSync.DataAccess.csproj UrbanSync.DataAccess/
-COPY UrbanSync.Business/HomeSync.Business.csproj UrbanSync.Business/
-COPY UrbanSync.Api/HomeSync.Api.csproj UrbanSync.Api/
+COPY HomeSync.Domain/HomeSync.Domain.csproj HomeSync.Domain/
+COPY HomeSync.DataAccess/HomeSync.DataAccess.csproj HomeSync.DataAccess/
+COPY HomeSync.Business/HomeSync.Business.csproj HomeSync.Business/
+COPY HomeSync.Api/HomeSync.Api.csproj HomeSync.Api/
 RUN dotnet restore HomeSync.sln
 
 COPY . .
-RUN dotnet publish UrbanSync.Api/HomeSync.Api.csproj -c Release -o /app/publish --no-restore
+RUN dotnet publish HomeSync.Api/HomeSync.Api.csproj -c Release -o /app/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
