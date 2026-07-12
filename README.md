@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistema de Gestion Inmobiliaria - Catalogo de Alquiler y Venta
 
 Aplicacion web para la gestion de un catalogo de propiedades inmobiliarias (alquiler y venta), compuesta por un backend con API RESTful y un frontend que consume dichos servicios. Permite a un administrador gestionar el inventario de propiedades, usuarios y solicitudes de visita, mientras que el cliente final puede explorar el catalogo publico, filtrar resultados y agendar visitas. Incluye un modulo de reportes de inteligencia de negocio y registro de auditoria.
@@ -53,3 +54,4 @@ Ver `.env.example` en cada carpeta para las variables requeridas (conexion a bas
 - Gestion de usuarios y permisos
 - Registro de auditoria
 - Modulo de reportes (distribucion de inmuebles y propiedades mas solicitadas)
+>>>>>>> main
