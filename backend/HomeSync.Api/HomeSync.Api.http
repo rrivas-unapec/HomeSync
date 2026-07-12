@@ -1,0 +1,29 @@
+@HomeSync.Api_HostAddress = http://localhost:5220
+
+### Información general del API
+
+GET {{HomeSync.Api_HostAddress}}/
+Accept: application/json
+
+###
+
+### Estado del API
+
+GET {{HomeSync.Api_HostAddress}}/api/health
+Accept: application/json
+
+###
+
+### Lista de propiedades simuladas
+
+GET {{HomeSync.Api_HostAddress}}/api/propiedades
+Accept: application/json
+
+###
+
+### Propiedad simulada por ID
+
+GET {{HomeSync.Api_HostAddress}}/api/propiedades/1
+Accept: application/json
+
+###
