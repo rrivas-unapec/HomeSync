@@ -33,6 +33,14 @@ public class SolicitudDeVisitaService : ISolicitudDeVisitaService
         return solicitudes.Select(MapearDto).ToList();
     }
 
+    public async Task<SolicitudDeVisitaDto> ObtenerPorIdAsync(int id)
+    {
+        var solicitud = await _solicitudRepository.GetByIdConDetalleAsync(id)
+            ?? throw new NotFoundException($"No existe la solicitud con id {id}.");
+
+        return MapearDto(solicitud);
+    }
+
     public async Task<SolicitudDeVisitaDto> CrearAsync(SolicitudDeVisitaCreateDto dto)
     {
         if (!HorariosValidos.Contains(dto.Horario))

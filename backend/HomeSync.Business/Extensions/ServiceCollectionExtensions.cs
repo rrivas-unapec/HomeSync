@@ -14,6 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPropiedadService, PropiedadService>();
         services.AddScoped<ISolicitudDeVisitaService, SolicitudDeVisitaService>();
         services.AddScoped<IReporteService, ReporteService>();
+        services.AddScoped<IAuditoriaService, AuditoriaService>();
 
         return services;
     }

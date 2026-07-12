@@ -26,12 +26,20 @@ public class ClientesController : ControllerBase
         return Ok(clientes);
     }
 
+    /// <summary>Obtiene un cliente por su id. Solo administrador.</summary>
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<ClienteDto>> ObtenerPorId(int id)
+    {
+        var cliente = await _clienteService.ObtenerPorIdAsync(id);
+        return Ok(cliente);
+    }
+
     /// <summary>Registra un nuevo cliente manualmente desde el panel de administracion.</summary>
     [HttpPost]
     public async Task<ActionResult<ClienteDto>> Crear([FromBody] ClienteCreateDto dto)
     {
         var creado = await _clienteService.CrearAsync(dto);
-        return Created($"api/clientes/{creado.Id}", creado);
+        return CreatedAtAction(nameof(ObtenerPorId), new { id = creado.Id }, creado);
     }
 
     /// <summary>Actualiza datos de contacto de un cliente.</summary>

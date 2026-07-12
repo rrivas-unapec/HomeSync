@@ -69,6 +69,12 @@ public class UsuarioService : IUsuarioService
         return MapearDto(usuario);
     }
 
+    public async Task<IReadOnlyList<UsuarioDto>> ObtenerTodosAsync()
+    {
+        var usuarios = await _usuarioRepository.GetAllOrdenadosAsync();
+        return usuarios.Select(MapearDto).ToList();
+    }
+
     private static UsuarioDto MapearDto(Usuario u) => new()
     {
         Id = u.Id,
