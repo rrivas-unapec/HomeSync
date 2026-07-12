@@ -13,6 +13,7 @@ import {
   TableWrapper,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
+import { isApiError } from '@/lib/api-error'
 import { PROPERTY_STATE_LABELS, PROPERTY_TYPE_LABELS } from '@/lib/domain'
 import { formatCurrency } from '@/lib/format'
 import { MESSAGES } from '@/lib/messages'
@@ -59,8 +60,13 @@ export function AdminPropertiesPage() {
         toast.success(MESSAGES.adminProperties.deleted)
         closeDelete()
       },
-      onError: () => {
-        setDeleteBlocked(true)
+      onError: (error: unknown) => {
+        if (isApiError(error) && error.kind === 'server') {
+          setDeleteBlocked(true)
+          return
+        }
+        toast.error(isApiError(error) ? error.message : MESSAGES.errors.unknown)
+        closeDelete()
       },
     })
   }

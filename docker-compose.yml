@@ -7,7 +7,7 @@ services:
       MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
       MSSQL_PID: Developer
     ports:
-      - "1433:1433"
+      - "127.0.0.1:${DB_PORT:-1433}:1433"
     volumes:
       - db-data:/var/opt/mssql
     healthcheck:
@@ -29,13 +29,14 @@ services:
         condition: service_healthy
     environment:
       MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      AppPassword: ${DB_APP_PASSWORD}
     volumes:
       - ./backend/db/init:/scripts:ro
     entrypoint:
       [
         "/bin/bash",
         "-c",
-        "/opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P \"$$MSSQL_SA_PASSWORD\" -i /scripts/01-schema.sql -b && echo 'Esquema aplicado.'",
+        "set -e; /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P \"$$MSSQL_SA_PASSWORD\" -i /scripts/01-schema.sql -b; /opt/mssql-tools/bin/sqlcmd -S db,1433 -U sa -P \"$$MSSQL_SA_PASSWORD\" -i /scripts/02-app-user.sql -b; echo 'Esquema y usuario de aplicacion aplicados.'",
       ]
     restart: "no"
 
@@ -50,7 +51,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__HomeSyncConnection: "Server=db,1433;Database=HomeSync;User Id=sa;Password=${MSSQL_SA_PASSWORD};TrustServerCertificate=True;Encrypt=False;"
+      ConnectionStrings__HomeSyncConnection: "Server=db,1433;Database=HomeSync;User Id=homesync_app;Password=${DB_APP_PASSWORD};TrustServerCertificate=True;Encrypt=True;"
       Jwt__Key: ${JWT_KEY}
       Jwt__Issuer: UrbanSync.Api
       Jwt__Audience: UrbanSync.Clientes
@@ -93,7 +94,7 @@ services:
       api:
         condition: service_healthy
     ports:
-      - "${WEB_PORT:-3000}:80"
+      - "${WEB_PORT:-3000}:8080"
 
 volumes:
   db-data:

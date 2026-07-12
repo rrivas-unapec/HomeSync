@@ -9,7 +9,7 @@ const SORT_LABELS: Record<SortOption, string> = {
 }
 
 const CONTROL_CLASS =
-  'border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors duration-150 ease-out hover:border-foreground/40 motion-reduce:transition-none'
+  'border border-border-control bg-card px-3 py-2 text-sm text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none'
 
 const LABEL_CLASS = 'text-xs font-medium uppercase tracking-wide text-muted-foreground'
 

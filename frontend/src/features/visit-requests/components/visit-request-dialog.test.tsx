@@ -5,6 +5,7 @@ import { server } from '@/test/msw/server'
 import { API } from '@/test/msw/handlers'
 import { buildProperty } from '@/test/factories'
 import { renderWithProviders } from '@/test/render'
+import { VISIT_SLOT_LABELS } from '@/lib/domain'
 import { MESSAGES } from '@/lib/messages'
 import { VisitRequestDialog } from './visit-request-dialog'
 
@@ -76,7 +77,7 @@ describe('VisitRequestDialog', () => {
     )
 
     await fillForm(user, '2099-01-15')
-    await user.click(screen.getByRole('button', { name: 'Tarde' }))
+    await user.click(screen.getByRole('radio', { name: VISIT_SLOT_LABELS.tarde }))
     await user.click(screen.getByRole('button', { name: MESSAGES.visit.submit }))
 
     await waitFor(() => {

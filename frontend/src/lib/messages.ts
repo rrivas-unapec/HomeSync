@@ -137,6 +137,8 @@ export const MESSAGES = {
   adminVisits: {
     title: 'Solicitudes de visita',
     empty: 'Aún no hay solicitudes de visita.',
+    emptyFiltered: 'Ninguna solicitud coincide con el estado seleccionado.',
+    showAll: 'Ver todas',
     error: 'No pudimos cargar las solicitudes.',
     filterState: 'Estado',
     stateUpdated: 'Estado actualizado.',
@@ -208,6 +210,7 @@ export const MESSAGES = {
     user: 'Usuario',
     date: 'Fecha',
     noPhone: 'Sin teléfono',
+    empty: '—',
   },
   validation: {
     required: 'Este campo es obligatorio.',

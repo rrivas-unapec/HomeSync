@@ -3,7 +3,8 @@ const LOCALE = 'es-DO'
 const currencyFormatter = new Intl.NumberFormat(LOCALE, {
   style: 'currency',
   currency: 'DOP',
-  maximumFractionDigits: 0,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
 })
 
 const numberFormatter = new Intl.NumberFormat(LOCALE)

@@ -13,6 +13,7 @@ import {
   TableWrapper,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
+import { isApiError } from '@/lib/api-error'
 import { VISIT_SLOT_LABELS, VISIT_STATES, VISIT_STATE_LABELS, type VisitState } from '@/lib/domain'
 import { formatIsoDate } from '@/lib/format'
 import { MESSAGES } from '@/lib/messages'
@@ -25,7 +26,7 @@ import {
 import type { VisitRequest } from '../types/visit-request'
 
 const CONTROL_CLASS =
-  'border border-border bg-card px-2 py-1.5 text-xs text-foreground transition-colors duration-150 ease-out hover:border-foreground/40 motion-reduce:transition-none cursor-pointer'
+  'border border-border-control bg-card px-2 py-1.5 text-xs text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none cursor-pointer'
 
 export function AdminVisitRequestsPage() {
   const queryClient = useQueryClient()
@@ -49,8 +50,8 @@ export function AdminVisitRequestsPage() {
       toast.success(MESSAGES.adminVisits.stateUpdated)
       invalidate()
     },
-    onError: () => {
-      toast.error(MESSAGES.errors.server)
+    onError: (error: unknown) => {
+      toast.error(isApiError(error) ? error.message : MESSAGES.errors.unknown)
     },
   })
 
@@ -61,8 +62,8 @@ export function AdminVisitRequestsPage() {
       setCancelling(null)
       invalidate()
     },
-    onError: () => {
-      toast.error(MESSAGES.errors.server)
+    onError: (error: unknown) => {
+      toast.error(isApiError(error) ? error.message : MESSAGES.errors.unknown)
     },
   })
 
@@ -111,7 +112,17 @@ export function AdminVisitRequestsPage() {
             }}
           />
         ) : rows.length === 0 ? (
-          <EmptyState message={MESSAGES.adminVisits.empty} />
+          stateFilter.length > 0 ? (
+            <EmptyState
+              message={MESSAGES.adminVisits.emptyFiltered}
+              actionLabel={MESSAGES.adminVisits.showAll}
+              onAction={() => {
+                setStateFilter('')
+              }}
+            />
+          ) : (
+            <EmptyState message={MESSAGES.adminVisits.empty} />
+          )
         ) : (
           <TableWrapper>
             <TableHead>
@@ -130,9 +141,11 @@ export function AdminVisitRequestsPage() {
                     {row.id}
                   </TableCell>
                   <TableCell className="max-w-xs">
-                    <span className="line-clamp-2">{row.propiedadTitulo ?? '—'}</span>
+                    <span className="line-clamp-2">
+                      {row.propiedadTitulo ?? MESSAGES.table.empty}
+                    </span>
                   </TableCell>
-                  <TableCell>{row.clienteNombre ?? '—'}</TableCell>
+                  <TableCell>{row.clienteNombre ?? MESSAGES.table.empty}</TableCell>
                   <TableCell className="tabular-nums">{formatIsoDate(row.fechaSugerida)}</TableCell>
                   <TableCell>{VISIT_SLOT_LABELS[row.horario]}</TableCell>
                   <TableCell>

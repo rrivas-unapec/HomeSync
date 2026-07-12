@@ -113,3 +113,4 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = N'IX_AuditoriaPropiedades_PropiedadId')
     CREATE INDEX [IX_AuditoriaPropiedades_PropiedadId] ON [dbo].[auditoriapropiedades]([propiedadid]);
 GO
+

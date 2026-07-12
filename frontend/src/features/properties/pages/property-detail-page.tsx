@@ -16,8 +16,13 @@ import type { Property } from '../types/property'
 export function PropertyDetailPage() {
   const params = useParams<{ id: string }>()
   const id = Number(params.id)
+  const isValidId = Number.isInteger(id) && id > 0
   const query = useProperty(id)
   const [scheduling, setScheduling] = useState<Property | null>(null)
+
+  if (!isValidId) {
+    return <NotFoundPage />
+  }
 
   if (query.isPending) {
     return (

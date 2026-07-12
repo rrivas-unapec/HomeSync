@@ -3,8 +3,9 @@ set -eu
 
 API_BASE_URL="${API_BASE_URL:-http://api:8080/api}"
 ADMIN_NAME="${ADMIN_NAME:-Administrador}"
-ADMIN_EMAIL="${ADMIN_EMAIL:-admin@homesync.do}"
-ADMIN_PASSWORD="${ADMIN_PASSWORD:-Admin123*}"
+
+: "${ADMIN_EMAIL:?Falta ADMIN_EMAIL. Definelo en el archivo .env}"
+: "${ADMIN_PASSWORD:?Falta ADMIN_PASSWORD. Definelo en el archivo .env}"
 
 log() { printf '[seed] %s\n' "$1"; }
 

@@ -184,6 +184,28 @@ describe('AdminPropertiesPage', () => {
     expect(puts[0]).toMatchObject({ estado: 'inactiva' })
   })
 
+  it('no culpa a las solicitudes cuando el borrado falla por falta de permiso', async () => {
+    seedSession('administrador')
+
+    server.use(http.delete(`${API}/propiedades/:id`, () => new HttpResponse(null, { status: 403 })))
+
+    const { user } = renderWithProviders(<AdminPropertiesPage />)
+    await screen.findByText('Propiedad 1')
+
+    await user.click(
+      screen.getAllByRole('button', { name: MESSAGES.actions.delete })[0] as HTMLElement,
+    )
+    await screen.findByRole('alertdialog')
+    await user.click(
+      screen.getAllByRole('button', { name: MESSAGES.actions.delete }).at(-1) as HTMLElement,
+    )
+
+    await waitFor(() => {
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
+    })
+    expect(screen.queryByText(MESSAGES.adminProperties.deleteBlocked)).not.toBeInTheDocument()
+  })
+
   it('refresca la lista aunque el borrado falle', async () => {
     seedSession('administrador')
 

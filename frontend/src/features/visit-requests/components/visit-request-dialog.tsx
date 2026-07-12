@@ -151,17 +151,30 @@ export function VisitRequestDialog({ property, onClose }: VisitRequestDialogProp
                   <Controller
                     control={control}
                     name="horario"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                       <fieldset className="flex flex-col gap-1.5">
                         <legend className="mb-1.5 text-xs font-medium uppercase tracking-wide text-foreground">
                           {MESSAGES.visit.slotLabel}
                         </legend>
-                        <div className="flex">
+                        <div
+                          role="radiogroup"
+                          aria-label={MESSAGES.visit.slotLabel}
+                          aria-invalid={fieldState.error !== undefined}
+                          className="flex"
+                        >
                           {VISIT_SLOTS.map((slot, index) => (
                             <button
                               key={slot}
                               type="button"
-                              aria-pressed={field.value === slot}
+                              role="radio"
+                              aria-checked={field.value === slot}
+                              tabIndex={field.value === slot ? 0 : -1}
+                              onKeyDown={(event) => {
+                                if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return
+                                event.preventDefault()
+                                const next = VISIT_SLOTS[(index + 1) % VISIT_SLOTS.length]
+                                if (next !== undefined) field.onChange(next)
+                              }}
                               onClick={() => {
                                 field.onChange(slot)
                               }}
@@ -170,13 +183,18 @@ export function VisitRequestDialog({ property, onClose }: VisitRequestDialogProp
                                 index > 0 && '-ml-px',
                                 field.value === slot
                                   ? 'border-foreground bg-foreground text-white'
-                                  : 'border-border bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
+                                  : 'border-border-control bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
                               )}
                             >
                               {VISIT_SLOT_LABELS[slot]}
                             </button>
                           ))}
                         </div>
+                        {fieldState.error !== undefined && (
+                          <p role="alert" className="text-xs font-medium text-destructive">
+                            {fieldState.error.message}
+                          </p>
+                        )}
                       </fieldset>
                     )}
                   />

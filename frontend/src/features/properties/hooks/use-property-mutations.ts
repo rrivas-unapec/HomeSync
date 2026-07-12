@@ -7,6 +7,7 @@ function useInvalidateProperties() {
   const queryClient = useQueryClient()
   return () => {
     void queryClient.invalidateQueries({ queryKey: queryKeys.properties.all })
+    void queryClient.invalidateQueries({ queryKey: queryKeys.visitRequests.all })
     void queryClient.invalidateQueries({ queryKey: queryKeys.reports.all })
     void queryClient.invalidateQueries({ queryKey: queryKeys.audit.all })
   }

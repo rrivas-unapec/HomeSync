@@ -97,7 +97,7 @@ export function AdminAuditPage() {
                       className="line-clamp-2 font-mono text-xs text-muted-foreground"
                       title={entry.detallesCambio ?? undefined}
                     >
-                      {entry.detallesCambio ?? '—'}
+                      {entry.detallesCambio ?? MESSAGES.table.empty}
                     </span>
                   </TableCell>
                   <TableCell className="whitespace-nowrap tabular-nums text-muted-foreground">
