@@ -9,7 +9,7 @@ interface EmptyStateProps {
 
 export function EmptyState({ message, actionLabel, onAction }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center gap-4 border border-dashed border-border-control bg-card px-6 py-20 text-center">
+    <div className="flex flex-col items-center gap-4 bg-card px-6 py-20 text-center">
       <p className="max-w-sm text-sm text-muted-foreground text-pretty">{message}</p>
       {actionLabel !== undefined && onAction !== undefined && (
         <Button variant="secondary" size="md" onClick={onAction}>
@@ -27,10 +27,7 @@ interface ErrorStateProps {
 
 export function ErrorState({ message, onRetry }: ErrorStateProps) {
   return (
-    <div
-      role="alert"
-      className="flex flex-col items-center gap-4 border border-destructive/40 bg-card px-6 py-20 text-center"
-    >
+    <div role="alert" className="flex flex-col items-center gap-4 bg-card px-6 py-20 text-center">
       <p className="max-w-sm text-sm font-medium text-destructive text-pretty">{message}</p>
       {onRetry !== undefined && (
         <Button variant="secondary" size="md" onClick={onRetry}>

@@ -16,7 +16,7 @@ interface ConfirmDialogProps {
 }
 
 const ACTION_CLASS =
-  'inline-flex cursor-pointer items-center justify-center border px-6 py-2.5 text-xs font-medium uppercase tracking-wide transition-[background-color,color,border-color,opacity] duration-150 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none motion-reduce:active:scale-100'
+  'inline-flex cursor-pointer items-center justify-center px-5 py-2.5 text-xs font-medium uppercase tracking-wide transition-[background-color,color,opacity] duration-150 ease-out active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none motion-reduce:active:scale-100'
 
 export function ConfirmDialog({
   open,
@@ -50,7 +50,7 @@ export function ConfirmDialog({
             <AlertDialogPrimitive.Cancel
               className={cn(
                 ACTION_CLASS,
-                'border-border bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
+                'bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground',
               )}
             >
               {cancelLabel}
@@ -64,8 +64,8 @@ export function ConfirmDialog({
               className={cn(
                 ACTION_CLASS,
                 destructive
-                  ? 'border-destructive bg-destructive text-destructive-foreground hover:opacity-80'
-                  : 'border-foreground bg-foreground text-background hover:opacity-80',
+                  ? 'bg-destructive text-destructive-foreground hover:opacity-80'
+                  : 'bg-foreground text-background hover:opacity-80',
               )}
             >
               {confirmLabel}

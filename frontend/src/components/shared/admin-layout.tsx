@@ -142,7 +142,7 @@ export function AdminLayout() {
             <button
               type="button"
               onClick={handleSignOut}
-              className="cursor-pointer border border-border-control px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground hover:text-foreground motion-reduce:transition-none"
+              className="cursor-pointer px-2 py-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground motion-reduce:transition-none"
             >
               {MESSAGES.actions.signOut}
             </button>

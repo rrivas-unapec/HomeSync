@@ -145,7 +145,7 @@ export function PropertyDetailPage() {
             {!canSchedule && (
               <p
                 role="status"
-                className="mt-5 border border-border-control px-3 py-2.5 text-xs leading-relaxed text-muted-foreground text-pretty"
+                className="mt-5 bg-muted px-3 py-2.5 text-xs leading-relaxed text-muted-foreground text-pretty"
               >
                 {property.estado === 'inactiva'
                   ? MESSAGES.property.inactiveNotice

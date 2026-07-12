@@ -251,7 +251,7 @@ export function PropertyFormDialog({ open, property, onClose }: PropertyFormDial
               {formError !== null && (
                 <p
                   role="alert"
-                  className="border border-destructive px-3 py-2 text-xs font-medium text-destructive"
+                  className="bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive"
                 >
                   {formError}
                 </p>

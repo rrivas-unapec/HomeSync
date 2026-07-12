@@ -179,11 +179,11 @@ export function VisitRequestDialog({ property, onClose }: VisitRequestDialogProp
                                 field.onChange(slot)
                               }}
                               className={cn(
-                                'flex-1 cursor-pointer border px-2 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors duration-150 ease-out motion-reduce:transition-none',
-                                index > 0 && '-ml-px',
+                                'flex-1 cursor-pointer px-2 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors duration-150 ease-out motion-reduce:transition-none',
+                                index > 0 && 'ml-px',
                                 field.value === slot
-                                  ? 'border-foreground bg-foreground text-background'
-                                  : 'border-border-control bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
+                                  ? 'bg-foreground text-background'
+                                  : 'bg-muted text-muted-foreground hover:text-foreground',
                               )}
                             >
                               {VISIT_SLOT_LABELS[slot]}
@@ -203,7 +203,7 @@ export function VisitRequestDialog({ property, onClose }: VisitRequestDialogProp
                 {formError !== null && (
                   <p
                     role="alert"
-                    className="border border-destructive px-3 py-2 text-xs font-medium text-destructive"
+                    className="bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive"
                   >
                     {formError}
                   </p>
