@@ -1,0 +1,11 @@
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\bin\Debug\net8.0\HomeSync.Domain.deps.json
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\bin\Debug\net8.0\HomeSync.Domain.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\bin\Debug\net8.0\HomeSync.Domain.pdb
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.AssemblyInfoInputs.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.AssemblyInfo.cs
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.csproj.CoreCompileInputs.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\refint\HomeSync.Domain.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\HomeSync.Domain.pdb
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.Domain\obj\Debug\net8.0\ref\HomeSync.Domain.dll

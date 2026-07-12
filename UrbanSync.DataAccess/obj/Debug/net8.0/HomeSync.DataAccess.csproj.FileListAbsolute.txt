@@ -1,0 +1,17 @@
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.DataAccess.deps.json
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.DataAccess.runtimeconfig.json
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.DataAccess.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.DataAccess.pdb
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.Domain.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\bin\Debug\net8.0\HomeSync.Domain.pdb
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.csproj.AssemblyReference.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.AssemblyInfoInputs.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.AssemblyInfo.cs
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.csproj.CopyComplete
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\refint\HomeSync.DataAccess.dll
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.pdb
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\HomeSync.DataAccess.genruntimeconfig.cache
+C:\Users\DavidRivas\Downloads\UrbanSync-Api\UrbanSync.DataAccess\obj\Debug\net8.0\ref\HomeSync.DataAccess.dll
