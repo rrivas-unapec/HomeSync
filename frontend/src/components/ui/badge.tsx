@@ -6,10 +6,10 @@ const badgeVariants = cva(
   {
     variants: {
       tone: {
-        neutral: 'border-border text-muted-foreground',
-        strong: 'border-foreground bg-foreground text-white',
-        outline: 'border-border-strong text-foreground',
+        neutral: 'border-border-control text-muted-foreground',
+        outline: 'border-foreground text-foreground',
         danger: 'border-destructive text-destructive',
+        onImage: 'border-transparent bg-card text-foreground',
       },
     },
     defaultVariants: {

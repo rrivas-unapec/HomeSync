@@ -6,13 +6,13 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogBody, DialogContent, DialogFooter } from '@/components/ui/dialog'
 import { TextField } from '@/components/ui/field'
-import { Skeleton } from '@/components/ui/skeleton'
 import {
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
+  TableSkeleton,
   TableWrapper,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
@@ -52,7 +52,7 @@ export function AdminClientsPage() {
 
   return (
     <>
-      <PageHeader title={MESSAGES.adminClients.title}>
+      <PageHeader title={MESSAGES.adminClients.title} subtitle={MESSAGES.adminClients.subtitle}>
         <Button
           size="md"
           onClick={() => {
@@ -65,7 +65,7 @@ export function AdminClientsPage() {
 
       <div className="px-6 py-8 md:px-8">
         {query.isPending ? (
-          <Skeleton className="h-64 w-full" />
+          <TableSkeleton columns={6} />
         ) : query.isError ? (
           <ErrorState
             message={MESSAGES.adminClients.error}

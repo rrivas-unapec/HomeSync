@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { PROPERTY_TYPES, PROPERTY_TYPE_LABELS } from '@/lib/domain'
 import { MESSAGES } from '@/lib/messages'
 import { SORT_OPTIONS, type SortOption } from '../types/property'
@@ -9,9 +10,9 @@ const SORT_LABELS: Record<SortOption, string> = {
 }
 
 const CONTROL_CLASS =
-  'border border-border-control bg-card px-3 py-2 text-sm text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none'
+  'h-9 border border-border-control bg-card px-3 text-sm text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none'
 
-const LABEL_CLASS = 'text-xs font-medium uppercase tracking-wide text-muted-foreground'
+const LABEL_CLASS = 'text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground'
 
 interface CatalogFiltersProps {
   tipo: string
@@ -19,11 +20,13 @@ interface CatalogFiltersProps {
   precioMinimo: string
   precioMaximo: string
   sort: SortOption
+  hasFilters: boolean
   onTipoChange: (value: string) => void
   onZonaChange: (value: string) => void
   onPrecioMinimoChange: (value: string) => void
   onPrecioMaximoChange: (value: string) => void
   onSortChange: (value: string) => void
+  onClear: () => void
 }
 
 export function CatalogFilters({
@@ -32,16 +35,18 @@ export function CatalogFilters({
   precioMinimo,
   precioMaximo,
   sort,
+  hasFilters,
   onTipoChange,
   onZonaChange,
   onPrecioMinimoChange,
   onPrecioMaximoChange,
   onSortChange,
+  onClear,
 }: CatalogFiltersProps) {
   return (
-    <div className="border-b border-border bg-card px-6 py-4 md:px-8">
-      <div className="flex flex-wrap items-end gap-3">
-        <div className="flex flex-col gap-1">
+    <search className="sticky top-14 z-30 border-b border-border bg-card px-6 py-4 md:px-8">
+      <div className="flex flex-wrap items-end gap-x-4 gap-y-3">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="filtro-tipo" className={LABEL_CLASS}>
             {MESSAGES.catalog.filterType}
           </label>
@@ -62,7 +67,7 @@ export function CatalogFilters({
           </select>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="filtro-zona" className={LABEL_CLASS}>
             {MESSAGES.catalog.filterZone}
           </label>
@@ -80,7 +85,7 @@ export function CatalogFilters({
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="filtro-precio-min" className={LABEL_CLASS}>
             {MESSAGES.catalog.filterPriceMin}
           </label>
@@ -98,7 +103,7 @@ export function CatalogFilters({
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="filtro-precio-max" className={LABEL_CLASS}>
             {MESSAGES.catalog.filterPriceMax}
           </label>
@@ -116,7 +121,7 @@ export function CatalogFilters({
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="filtro-orden" className={LABEL_CLASS}>
             {MESSAGES.catalog.sortLabel}
           </label>
@@ -135,7 +140,13 @@ export function CatalogFilters({
             ))}
           </select>
         </div>
+
+        {hasFilters && (
+          <Button variant="ghost" size="sm" className="ml-auto h-9" onClick={onClear}>
+            {MESSAGES.actions.clearFilters}
+          </Button>
+        )}
       </div>
-    </div>
+    </search>
   )
 }

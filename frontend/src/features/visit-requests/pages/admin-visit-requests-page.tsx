@@ -3,13 +3,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
-import { Skeleton } from '@/components/ui/skeleton'
 import {
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
+  TableSkeleton,
   TableWrapper,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
@@ -75,7 +75,7 @@ export function AdminVisitRequestsPage() {
 
   return (
     <>
-      <PageHeader title={MESSAGES.adminVisits.title}>
+      <PageHeader title={MESSAGES.adminVisits.title} subtitle={MESSAGES.adminVisits.subtitle}>
         <div className="flex items-center gap-2">
           <label
             htmlFor="filtro-estado"
@@ -103,7 +103,7 @@ export function AdminVisitRequestsPage() {
 
       <div className="px-6 py-8 md:px-8">
         {query.isPending ? (
-          <Skeleton className="h-64 w-full" />
+          <TableSkeleton columns={7} />
         ) : query.isError ? (
           <ErrorState
             message={MESSAGES.adminVisits.error}

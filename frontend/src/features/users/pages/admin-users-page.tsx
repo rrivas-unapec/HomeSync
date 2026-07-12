@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
 import {
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
+  TableSkeleton,
   TableWrapper,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
@@ -37,11 +37,11 @@ export function AdminUsersPage() {
 
   return (
     <>
-      <PageHeader title={MESSAGES.adminUsers.title} />
+      <PageHeader title={MESSAGES.adminUsers.title} subtitle={MESSAGES.adminUsers.subtitle} />
 
       <div className="px-6 py-8 md:px-8">
         {query.isPending ? (
-          <Skeleton className="h-64 w-full" />
+          <TableSkeleton columns={5} />
         ) : query.isError ? (
           <ErrorState
             message={MESSAGES.adminUsers.error}

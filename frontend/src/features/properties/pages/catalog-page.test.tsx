@@ -35,10 +35,18 @@ describe('CatalogPage', () => {
   it('muestra el estado vacio con accion de limpiar filtros', async () => {
     server.use(http.get(`${API}/propiedades`, () => HttpResponse.json([])))
 
-    renderWithProviders(<CatalogPage />, { route: '/?zona=Inexistente' })
+    const { user } = renderWithProviders(<CatalogPage />, { route: '/?zona=Inexistente' })
 
     expect(await screen.findByText(MESSAGES.catalog.empty)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: MESSAGES.actions.clearFilters })).toBeInTheDocument()
+
+    const clearButtons = screen.getAllByRole('button', { name: MESSAGES.actions.clearFilters })
+    expect(clearButtons.length).toBeGreaterThan(0)
+
+    await user.click(clearButtons.at(-1) as HTMLElement)
+
+    await waitFor(() => {
+      expect(screen.getByTestId('location')).not.toHaveTextContent('zona=')
+    })
   })
 
   it('muestra el estado de error y permite reintentar', async () => {

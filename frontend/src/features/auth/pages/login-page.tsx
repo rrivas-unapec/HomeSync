@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useAuth } from '@/app/providers/auth-context'
 import { Button } from '@/components/ui/button'
 import { TextField } from '@/components/ui/field'
+import { Wordmark } from '@/components/shared/wordmark'
 import { MESSAGES } from '@/lib/messages'
 import { applyApiErrorToForm } from '@/lib/apply-api-error'
 import { login } from '../api/auth-api'
@@ -50,6 +51,9 @@ export function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-sm border border-border bg-card px-8 py-12 sm:px-10">
         <div className="mb-10">
+          <Link to="/" className="mb-6 inline-block">
+            <Wordmark />
+          </Link>
           <p className="mb-3 text-xs font-medium uppercase tracking-widest text-muted-foreground">
             {MESSAGES.app.tagline}
           </p>

@@ -55,7 +55,7 @@ export function ReportsPage() {
 
   return (
     <>
-      <PageHeader title={MESSAGES.reports.title} />
+      <PageHeader title={MESSAGES.reports.title} subtitle={MESSAGES.reports.subtitle} />
 
       <div className="grid grid-cols-1 gap-8 px-6 py-8 md:px-8 lg:grid-cols-2">
         <section aria-labelledby="reporte-distribucion">

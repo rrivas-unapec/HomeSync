@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ConfirmDialog } from '@/components/ui/confirm-dialog'
-import { Skeleton } from '@/components/ui/skeleton'
 import {
+  SortableHeaderCell,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
+  TableSkeleton,
   TableWrapper,
+  type SortDirection,
 } from '@/components/ui/table'
 import { EmptyState, ErrorState, PageHeader } from '@/components/shared/states'
 import { isApiError } from '@/lib/api-error'
@@ -22,6 +24,13 @@ import { useProperties } from '../hooks/use-properties'
 import { useDeleteProperty, useUpdateProperty } from '../hooks/use-property-mutations'
 import type { Property } from '../types/property'
 
+type SortKey = 'titulo' | 'precio' | 'ubicacionZona'
+
+interface SortState {
+  key: SortKey | null
+  direction: SortDirection
+}
+
 export function AdminPropertiesPage() {
   const query = useProperties({})
   const deleteMutation = useDeleteProperty()
@@ -31,6 +40,27 @@ export function AdminPropertiesPage() {
   const [editing, setEditing] = useState<Property | null>(null)
   const [deleting, setDeleting] = useState<Property | null>(null)
   const [deleteBlocked, setDeleteBlocked] = useState(false)
+  const [sort, setSort] = useState<SortState>({ key: null, direction: null })
+
+  function toggleSort(key: SortKey) {
+    setSort((current) => {
+      if (current.key !== key) return { key, direction: 'asc' }
+      if (current.direction === 'asc') return { key, direction: 'desc' }
+      return { key: null, direction: null }
+    })
+  }
+
+  const rows = useMemo(() => {
+    const data = query.data ?? []
+    const { key, direction } = sort
+    if (key === null || direction === null) return data
+
+    const factor = direction === 'asc' ? 1 : -1
+    return [...data].sort((a, b) => {
+      if (key === 'precio') return (a.precio - b.precio) * factor
+      return a[key].localeCompare(b[key], 'es') * factor
+    })
+  }, [query.data, sort])
 
   function openCreate() {
     setEditing(null)
@@ -104,7 +134,10 @@ export function AdminPropertiesPage() {
 
   return (
     <>
-      <PageHeader title={MESSAGES.adminProperties.title}>
+      <PageHeader
+        title={MESSAGES.adminProperties.title}
+        subtitle={MESSAGES.adminProperties.subtitle}
+      >
         <Button size="md" onClick={openCreate}>
           {MESSAGES.adminProperties.createTitle}
         </Button>
@@ -112,7 +145,7 @@ export function AdminPropertiesPage() {
 
       <div className="px-6 py-8 md:px-8">
         {query.isPending ? (
-          <Skeleton className="h-64 w-full" />
+          <TableSkeleton columns={7} />
         ) : query.isError ? (
           <ErrorState
             message={MESSAGES.adminProperties.error}
@@ -129,16 +162,37 @@ export function AdminPropertiesPage() {
         ) : (
           <TableWrapper>
             <TableHead>
-              <TableHeaderCell numeric>{MESSAGES.table.id}</TableHeaderCell>
-              <TableHeaderCell>{MESSAGES.table.title}</TableHeaderCell>
-              <TableHeaderCell>{MESSAGES.table.type}</TableHeaderCell>
-              <TableHeaderCell numeric>{MESSAGES.table.price}</TableHeaderCell>
-              <TableHeaderCell>{MESSAGES.table.zone}</TableHeaderCell>
-              <TableHeaderCell>{MESSAGES.table.state}</TableHeaderCell>
-              <TableHeaderCell>{MESSAGES.table.actions}</TableHeaderCell>
+              <TableHeaderCell numeric className="w-16">
+                {MESSAGES.table.id}
+              </TableHeaderCell>
+              <SortableHeaderCell
+                label={MESSAGES.table.title}
+                direction={sort.key === 'titulo' ? sort.direction : null}
+                onToggle={() => {
+                  toggleSort('titulo')
+                }}
+              />
+              <TableHeaderCell className="w-28">{MESSAGES.table.type}</TableHeaderCell>
+              <SortableHeaderCell
+                numeric
+                label={MESSAGES.table.price}
+                direction={sort.key === 'precio' ? sort.direction : null}
+                onToggle={() => {
+                  toggleSort('precio')
+                }}
+              />
+              <SortableHeaderCell
+                label={MESSAGES.table.zone}
+                direction={sort.key === 'ubicacionZona' ? sort.direction : null}
+                onToggle={() => {
+                  toggleSort('ubicacionZona')
+                }}
+              />
+              <TableHeaderCell className="w-32">{MESSAGES.table.state}</TableHeaderCell>
+              <TableHeaderCell className="w-44">{MESSAGES.table.actions}</TableHeaderCell>
             </TableHead>
             <TableBody>
-              {query.data.map((property) => (
+              {rows.map((property) => (
                 <TableRow key={property.id}>
                   <TableCell numeric className="text-muted-foreground">
                     {property.id}

@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router'
-import { AppLayout } from '@/components/shared/app-layout'
+import { AdminLayout } from '@/components/shared/admin-layout'
+import { PublicLayout } from '@/components/shared/public-layout'
 import { ForbiddenPage, NotFoundPage } from '@/components/shared/status-pages'
-import { Skeleton } from '@/components/ui/skeleton'
+import { TableSkeleton } from '@/components/ui/table'
 import { LoginPage } from '@/features/auth/pages/login-page'
 import { RegisterPage } from '@/features/auth/pages/register-page'
 import { CatalogPage } from '@/features/properties/pages/catalog-page'
@@ -43,9 +44,13 @@ const ReportsPage = lazy(() =>
 function RouteFallback() {
   return (
     <div className="px-6 py-8 md:px-8">
-      <Skeleton className="h-64 w-full" />
+      <TableSkeleton columns={5} />
     </div>
   )
+}
+
+function lazyRoute(element: React.ReactNode) {
+  return <Suspense fallback={<RouteFallback />}>{element}</Suspense>
 }
 
 export function AppRoutes() {
@@ -54,65 +59,24 @@ export function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registro" element={<RegisterPage />} />
 
-      <Route element={<AppLayout />}>
+      <Route element={<PublicLayout />}>
         <Route index element={<CatalogPage />} />
         <Route path="propiedades/:id" element={<PropertyDetailPage />} />
         <Route path="403" element={<ForbiddenPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
 
-        <Route element={<RequireAuth />}>
-          <Route element={<RequireRole role="administrador" />}>
-            <Route
-              path="admin/propiedades"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <AdminPropertiesPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="admin/solicitudes"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <AdminVisitRequestsPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="admin/clientes"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <AdminClientsPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="admin/usuarios"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <AdminUsersPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="admin/auditoria"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <AdminAuditPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="admin/reportes"
-              element={
-                <Suspense fallback={<RouteFallback />}>
-                  <ReportsPage />
-                </Suspense>
-              }
-            />
+      <Route element={<RequireAuth />}>
+        <Route element={<RequireRole role="administrador" />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="propiedades" element={lazyRoute(<AdminPropertiesPage />)} />
+            <Route path="solicitudes" element={lazyRoute(<AdminVisitRequestsPage />)} />
+            <Route path="clientes" element={lazyRoute(<AdminClientsPage />)} />
+            <Route path="usuarios" element={lazyRoute(<AdminUsersPage />)} />
+            <Route path="auditoria" element={lazyRoute(<AdminAuditPage />)} />
+            <Route path="reportes" element={lazyRoute(<ReportsPage />)} />
           </Route>
         </Route>
-
-        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   )
