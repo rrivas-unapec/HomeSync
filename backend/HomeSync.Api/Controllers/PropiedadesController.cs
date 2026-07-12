@@ -1,67 +1,78 @@
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using HomeSync.Business.DTOs;
+using HomeSync.Business.Interfaces;
+using HomeSync.Domain.Common;
 
 namespace HomeSync.Api.Controllers;
 
 [ApiController]
 [Route("api/propiedades")]
-public sealed class PropiedadesController : ControllerBase
+public class PropiedadesController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetAll()
+    private readonly IPropiedadService _propiedadService;
+
+    public PropiedadesController(IPropiedadService propiedadService)
     {
-        var propiedades = new[]
+        _propiedadService = propiedadService;
+    }
+
+    /// <summary>Lista propiedades con filtros opcionales por tipo, zona y rango de precio. Acceso publico.</summary>
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<PropiedadDto>>> Buscar(
+        [FromQuery] string? tipo,
+        [FromQuery] string? zona,
+        [FromQuery] decimal? precioMinimo,
+        [FromQuery] decimal? precioMaximo)
+    {
+        var filtro = new PropiedadFiltroDto
         {
-            new
-            {
-                id = 1,
-                titulo = "Apartamento moderno en Piantini",
-                tipo = "Alquiler",
-                precio = 65000,
-                ubicacion = "Piantini, Santo Domingo",
-                habitaciones = 3,
-                banos = 2,
-                parqueos = 2,
-                estado = "Disponible"
-            },
-            new
-            {
-                id = 2,
-                titulo = "Casa familiar en Santo Domingo Este",
-                tipo = "Venta",
-                precio = 8500000,
-                ubicacion = "Santo Domingo Este",
-                habitaciones = 4,
-                banos = 3,
-                parqueos = 2,
-                estado = "Disponible"
-            }
+            Tipo = tipo,
+            Zona = zona,
+            PrecioMinimo = precioMinimo,
+            PrecioMaximo = precioMaximo
         };
 
+        var propiedades = await _propiedadService.BuscarAsync(filtro);
         return Ok(propiedades);
     }
 
+    /// <summary>Obtiene el detalle de una propiedad. Acceso publico.</summary>
     [HttpGet("{id:int}")]
-    public IActionResult GetById(int id)
+    public async Task<ActionResult<PropiedadDto>> ObtenerPorId(int id)
     {
-        if (id != 1)
-        {
-            return NotFound(new
-            {
-                message = $"No se encontró la propiedad con ID {id}."
-            });
-        }
-
-        return Ok(new
-        {
-            id = 1,
-            titulo = "Apartamento moderno en Piantini",
-            tipo = "Alquiler",
-            precio = 65000,
-            ubicacion = "Piantini, Santo Domingo",
-            habitaciones = 3,
-            banos = 2,
-            parqueos = 2,
-            estado = "Disponible"
-        });
+        var propiedad = await _propiedadService.ObtenerPorIdAsync(id);
+        return Ok(propiedad);
     }
+
+    /// <summary>Crea una nueva propiedad. Solo administrador.</summary>
+    [Authorize(Roles = RolUsuario.Administrador)]
+    [HttpPost]
+    public async Task<ActionResult<PropiedadDto>> Crear([FromBody] PropiedadCreateDto dto)
+    {
+        var creada = await _propiedadService.CrearAsync(dto, ObtenerUsuarioId());
+        return CreatedAtAction(nameof(ObtenerPorId), new { id = creada.Id }, creada);
+    }
+
+    /// <summary>Actualiza una propiedad existente. Solo administrador.</summary>
+    [Authorize(Roles = RolUsuario.Administrador)]
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<PropiedadDto>> Actualizar(int id, [FromBody] PropiedadUpdateDto dto)
+    {
+        var actualizada = await _propiedadService.ActualizarAsync(id, dto, ObtenerUsuarioId());
+        return Ok(actualizada);
+    }
+
+    /// <summary>Elimina una propiedad. Solo administrador.</summary>
+    [Authorize(Roles = RolUsuario.Administrador)]
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Eliminar(int id)
+    {
+        await _propiedadService.EliminarAsync(id, ObtenerUsuarioId());
+        return NoContent();
+    }
+
+    private int ObtenerUsuarioId() =>
+        int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 }
