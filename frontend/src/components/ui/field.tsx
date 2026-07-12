@@ -2,7 +2,7 @@ import { forwardRef, useId } from 'react'
 import { cn } from '@/lib/utils'
 
 const CONTROL_CLASS =
-  'w-full border border-border-control bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground aria-[invalid=true]:border-destructive disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none'
+  'w-full border-0 border-b border-border-control bg-transparent px-0 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors duration-150 ease-out hover:border-foreground aria-[invalid=true]:border-destructive disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none'
 
 const LABEL_CLASS = 'text-xs font-medium uppercase tracking-wide text-foreground'
 
@@ -161,7 +161,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
           id={id}
           aria-invalid={error !== undefined && error.length > 0}
           aria-describedby={describedBy(error, hint, errorId, hintId)}
-          className={cn(CONTROL_CLASS, 'cursor-pointer bg-card py-2', className)}
+          className={cn(CONTROL_CLASS, 'cursor-pointer py-2', className)}
           {...props}
         >
           {children}

@@ -26,7 +26,7 @@ import {
 import type { VisitRequest } from '../types/visit-request'
 
 const CONTROL_CLASS =
-  'border border-border-control bg-card px-2 py-1.5 text-xs text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none cursor-pointer'
+  'border-0 border-b border-border-control bg-transparent px-0 py-1.5 pr-6 text-xs text-foreground transition-colors duration-150 ease-out hover:border-foreground motion-reduce:transition-none cursor-pointer'
 
 export function AdminVisitRequestsPage() {
   const queryClient = useQueryClient()
