@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router'
 import { createQueryClient } from '@/lib/query-client'
 import { AuthProvider } from '@/app/providers/auth-provider'
+import { ThemeProvider } from '@/app/providers/theme-provider'
 
 export function LocationProbe() {
   const location = useLocation()
@@ -28,16 +29,18 @@ export function renderWithProviders(
   client.setDefaultOptions({ queries: { retry: false, gcTime: 0 } })
 
   const result = render(
-    <QueryClientProvider client={client}>
-      <MemoryRouter initialEntries={[route]}>
-        <AuthProvider>
-          <LocationProbe />
-          <Routes>
-            <Route path={path} element={ui} />
-          </Routes>
-        </AuthProvider>
-      </MemoryRouter>
-    </QueryClientProvider>,
+    <ThemeProvider>
+      <QueryClientProvider client={client}>
+        <MemoryRouter initialEntries={[route]}>
+          <AuthProvider>
+            <LocationProbe />
+            <Routes>
+              <Route path={path} element={ui} />
+            </Routes>
+          </AuthProvider>
+        </MemoryRouter>
+      </QueryClientProvider>
+    </ThemeProvider>,
   )
 
   return { ...result, user: userEvent.setup() }
@@ -48,14 +51,16 @@ export function renderTree(ui: React.ReactElement, route = '/'): RenderWithProvi
   client.setDefaultOptions({ queries: { retry: false, gcTime: 0 } })
 
   const result = render(
-    <QueryClientProvider client={client}>
-      <MemoryRouter initialEntries={[route]}>
-        <AuthProvider>
-          <LocationProbe />
-          {ui}
-        </AuthProvider>
-      </MemoryRouter>
-    </QueryClientProvider>,
+    <ThemeProvider>
+      <QueryClientProvider client={client}>
+        <MemoryRouter initialEntries={[route]}>
+          <AuthProvider>
+            <LocationProbe />
+            {ui}
+          </AuthProvider>
+        </MemoryRouter>
+      </QueryClientProvider>
+    </ThemeProvider>,
   )
 
   return { ...result, user: userEvent.setup() }

@@ -117,6 +117,12 @@ export const MESSAGES = {
     closeMenu: 'Cerrar el menú',
     signedInAs: 'Sesión iniciada como',
   },
+  theme: {
+    label: 'Tema de la interfaz',
+    light: 'Tema claro',
+    dark: 'Tema oscuro',
+    system: 'Seguir al sistema',
+  },
   publicNav: {
     catalog: 'Catálogo',
     adminPanel: 'Panel',

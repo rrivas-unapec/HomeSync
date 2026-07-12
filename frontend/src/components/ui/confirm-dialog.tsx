@@ -33,7 +33,7 @@ export function ConfirmDialog({
   return (
     <AlertDialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <AlertDialogPrimitive.Portal>
-        <AlertDialogPrimitive.Overlay className="dialog-overlay fixed inset-0 z-50 bg-black/50" />
+        <AlertDialogPrimitive.Overlay className="dialog-overlay fixed inset-0 z-50 bg-overlay" />
         <AlertDialogPrimitive.Content className="dialog-content fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 border border-border bg-card">
           <div className="border-b border-border px-7 py-5">
             <AlertDialogPrimitive.Title className="text-base font-semibold text-foreground">
@@ -64,8 +64,8 @@ export function ConfirmDialog({
               className={cn(
                 ACTION_CLASS,
                 destructive
-                  ? 'border-destructive bg-destructive text-white hover:opacity-80'
-                  : 'border-foreground bg-foreground text-white hover:opacity-80',
+                  ? 'border-destructive bg-destructive text-destructive-foreground hover:opacity-80'
+                  : 'border-foreground bg-foreground text-background hover:opacity-80',
               )}
             >
               {confirmLabel}

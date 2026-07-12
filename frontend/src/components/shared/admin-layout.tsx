@@ -6,6 +6,7 @@ import { useAuth } from '@/app/providers/auth-context'
 import { MESSAGES } from '@/lib/messages'
 import { cn } from '@/lib/utils'
 import { SkipLink } from './skip-link'
+import { ThemeToggle } from './theme-toggle'
 import { Wordmark } from './wordmark'
 
 interface NavGroup {
@@ -118,6 +119,10 @@ export function AdminLayout() {
           </p>
 
           <div className="ml-auto flex items-center gap-4">
+            <ThemeToggle />
+
+            <span aria-hidden="true" className="hidden h-4 w-px bg-border-control md:block" />
+
             <NavLink
               to="/"
               className="hidden text-xs font-medium uppercase tracking-widest text-muted-foreground transition-colors duration-150 ease-out hover:text-foreground motion-reduce:transition-none md:block"
@@ -158,7 +163,7 @@ export function AdminLayout() {
               onClick={() => {
                 setMenuOpen(false)
               }}
-              className="absolute inset-0 cursor-default bg-black/50"
+              className="absolute inset-0 cursor-default bg-overlay"
             />
             <aside className="dialog-content absolute left-0 top-14 h-[calc(100vh-3.5rem)] w-64 overflow-y-auto border-r border-border bg-card py-6">
               <SidebarNav

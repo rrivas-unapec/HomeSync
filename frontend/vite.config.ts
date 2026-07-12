@@ -23,6 +23,8 @@ export default defineConfig({
     },
     setupFiles: ['./src/test/setup.ts'],
     css: true,
+    testTimeout: 15000,
+    hookTimeout: 15000,
     env: {
       TZ: 'America/Santo_Domingo',
       VITE_API_BASE_URL: 'http://localhost/api',

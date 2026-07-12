@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
-import { Toaster } from 'sonner'
 import { AppRoutes } from './app/router/app-routes'
 import { AuthProvider } from './app/providers/auth-provider'
 import { QueryProvider } from './app/providers/query-provider'
+import { ThemeProvider } from './app/providers/theme-provider'
+import { AppToaster } from './components/shared/app-toaster'
 import './styles/index.css'
 
 const container = document.getElementById('root')
@@ -15,13 +16,15 @@ if (container === null) {
 
 createRoot(container).render(
   <StrictMode>
-    <QueryProvider>
-      <BrowserRouter>
-        <AuthProvider>
-          <AppRoutes />
-          <Toaster position="bottom-right" toastOptions={{ className: 'text-sm' }} />
-        </AuthProvider>
-      </BrowserRouter>
-    </QueryProvider>
+    <ThemeProvider>
+      <QueryProvider>
+        <BrowserRouter>
+          <AuthProvider>
+            <AppRoutes />
+            <AppToaster />
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

@@ -24,7 +24,7 @@ export function DialogContent({
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay
-        className="dialog-overlay fixed inset-0 z-50 bg-black/50"
+        className="dialog-overlay fixed inset-0 z-50 bg-overlay"
         style={{ overscrollBehavior: 'contain' }}
       />
       <DialogPrimitive.Content

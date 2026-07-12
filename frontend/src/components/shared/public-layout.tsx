@@ -4,6 +4,7 @@ import { useAuth } from '@/app/providers/auth-context'
 import { MESSAGES } from '@/lib/messages'
 import { cn } from '@/lib/utils'
 import { SkipLink } from './skip-link'
+import { ThemeToggle } from './theme-toggle'
 import { Wordmark } from './wordmark'
 
 const LINK_CLASS =
@@ -42,7 +43,9 @@ export function PublicLayout() {
             </NavLink>
           </nav>
 
-          <div className="ml-auto flex items-center gap-5">
+          <div className="ml-auto flex items-center gap-4">
+            <ThemeToggle />
+            <span aria-hidden="true" className="h-4 w-px bg-border-control" />
             {isAdmin && (
               <NavLink to="/admin/propiedades" className={navLinkClass}>
                 {MESSAGES.publicNav.adminPanel}

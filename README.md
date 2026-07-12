@@ -164,6 +164,21 @@ Decisiones que conviene conocer:
 - **Los textos visibles salen de `lib/messages.ts`.** No hay cadenas sueltas en el JSX.
 - **Sin comentarios en el codigo.** `frontend/scripts/check-no-comments.mjs` lo verifica en cada `npm run lint`.
 
+### Temas (claro / oscuro)
+
+La interfaz tiene tema claro, oscuro y «seguir al sistema». Por defecto respeta `prefers-color-scheme`;
+la eleccion del usuario se guarda en `localStorage` y gana sobre la del sistema.
+
+Todos los colores son variables CSS semanticas (`--foreground`, `--card`, `--border-control`…) definidas en
+`src/styles/theme.css`. **No hay ni un color fijo en los componentes**: si lo hubiera, el tema oscuro se romperia.
+
+`public/theme-init.js` aplica la clase `dark` **antes de que React monte**, para que no haya un destello blanco
+al cargar en oscuro. Es un archivo externo, no un script en linea, porque la CSP de nginx (`script-src 'self'`)
+bloquea los scripts en linea.
+
+Contraste verificado sobre el DOM real en ambos temas: texto ≥ 4.5:1, bordes de controles y segmentos del
+grafico ≥ 3:1 (WCAG 1.4.3 y 1.4.11).
+
 ---
 
 ## Defectos conocidos del API

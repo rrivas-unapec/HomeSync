@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { TextField } from '@/components/ui/field'
+import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Wordmark } from '@/components/shared/wordmark'
 import { MESSAGES } from '@/lib/messages'
 import { applyApiErrorToForm } from '@/lib/apply-api-error'
@@ -44,7 +45,11 @@ export function RegisterPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
+    <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-12">
+      <div className="absolute right-4 top-4">
+        <ThemeToggle />
+      </div>
+
       <div className="w-full max-w-sm border border-border bg-card px-8 py-12 sm:px-10">
         <div className="mb-10">
           <Link to="/" className="mb-6 inline-block">

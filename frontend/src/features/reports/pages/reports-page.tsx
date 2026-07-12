@@ -17,7 +17,7 @@ import { MESSAGES } from '@/lib/messages'
 import { queryKeys } from '@/lib/query-keys'
 import { fetchTopRequested, fetchTypeDistribution } from '../api/reports-api'
 
-const SLICE_COLORS = ['var(--chart-1)', 'var(--chart-3)', 'var(--chart-2)', 'var(--chart-4)']
+const SLICE_COLORS = ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)']
 const TOP_COUNT = 5
 
 function prefersReducedMotion(): boolean {

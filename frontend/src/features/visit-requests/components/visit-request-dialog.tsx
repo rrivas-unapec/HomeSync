@@ -182,7 +182,7 @@ export function VisitRequestDialog({ property, onClose }: VisitRequestDialogProp
                                 'flex-1 cursor-pointer border px-2 py-2.5 text-xs font-medium uppercase tracking-wide transition-colors duration-150 ease-out motion-reduce:transition-none',
                                 index > 0 && '-ml-px',
                                 field.value === slot
-                                  ? 'border-foreground bg-foreground text-white'
+                                  ? 'border-foreground bg-foreground text-background'
                                   : 'border-border-control bg-transparent text-muted-foreground hover:border-foreground hover:text-foreground',
                               )}
                             >
