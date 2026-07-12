@@ -118,10 +118,8 @@ export const MESSAGES = {
     signedInAs: 'Sesión iniciada como',
   },
   theme: {
-    label: 'Tema de la interfaz',
-    light: 'Tema claro',
-    dark: 'Tema oscuro',
-    system: 'Seguir al sistema',
+    switchToDark: 'Cambiar al tema oscuro',
+    switchToLight: 'Cambiar al tema claro',
   },
   publicNav: {
     catalog: 'Catálogo',
