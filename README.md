@@ -90,7 +90,37 @@ dotnet run --project backend/HomeSync.Api --launch-profile http
 
 Usa el perfil `http`. Con el perfil `https`, `UseHttpsRedirection()` redirige a `https://localhost:7261` y el frontend no podra conectarse.
 
-### Base de datos
+### Usar la base desplegada en Azure
+
+Por defecto el stack levanta una base SQL Server local. Para apuntar a la base de Azure:
+
+1. En el portal de Azure, abre el firewall del servidor SQL para la IP publica de la maquina que va a conectarse:
+   **SQL Server → Networking → Firewall rules**. Si el API se despliega en Azure, activa tambien
+   *Allow Azure services and resources to access this server*.
+2. Pon la cadena de conexion en tu `.env` (nunca en el repositorio):
+
+   ```
+   AZURE_SQL_CONNECTION_STRING=Server=tcp:...;Initial Catalog=...;User ID=...;Password=...;Encrypt=True;...
+   ```
+
+3. Aplica el esquema una sola vez. El script es idempotente: si las tablas ya existen, no las toca.
+
+   ```bash
+   docker run --rm -v "$(pwd)/backend/db/azure:/scripts:ro" mcr.microsoft.com/mssql-tools:latest \
+     /opt/mssql-tools/bin/sqlcmd -S tcp:TU-SERVIDOR.database.windows.net,1433 \
+     -d TU-BASE -U TU-USUARIO -P 'TU-CLAVE' -N -i /scripts/01-schema-azure.sql -b
+   ```
+
+4. Levanta el stack sin la base local:
+
+   ```bash
+   docker compose -f docker-compose.yml -f docker-compose.azure.yml up --build -d
+   ```
+
+El script de Azure (`backend/db/azure/01-schema-azure.sql`) es distinto del local porque Azure SQL Database
+no admite `CREATE DATABASE`, `USE` ni `CREATE LOGIN`: la base y el usuario ya existen y se administran desde el portal.
+
+### Base de datos local
 
 El esquema esta en `backend/db/init/01-schema.sql` (T-SQL, idempotente) y el usuario de aplicacion con privilegios minimos en `02-app-user.sql`. Docker los aplica solo.
 

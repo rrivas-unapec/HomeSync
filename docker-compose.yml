@@ -53,8 +53,8 @@ services:
       ASPNETCORE_URLS: http://+:8080
       ConnectionStrings__HomeSyncConnection: "Server=db,1433;Database=HomeSync;User Id=homesync_app;Password=${DB_APP_PASSWORD};TrustServerCertificate=True;Encrypt=True;"
       Jwt__Key: ${JWT_KEY}
-      Jwt__Issuer: UrbanSync.Api
-      Jwt__Audience: UrbanSync.Clientes
+      Jwt__Issuer: HomeSync.Api
+      Jwt__Audience: HomeSync.Clientes
       Jwt__ExpiraMinutos: "120"
       CorsOrigenesPermitidos__0: http://localhost:3000
     ports:
