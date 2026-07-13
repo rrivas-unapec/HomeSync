@@ -1,0 +1,20 @@
+services:
+  db:
+    profiles:
+      - local-db
+
+  db-init:
+    profiles:
+      - local-db
+
+  api:
+    depends_on: !reset []
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__HomeSyncConnection: ${AZURE_SQL_CONNECTION_STRING}
+      Jwt__Key: ${JWT_KEY}
+      Jwt__Issuer: HomeSync.Api
+      Jwt__Audience: HomeSync.Clientes
+      Jwt__ExpiraMinutos: "120"
+      CorsOrigenesPermitidos__0: http://localhost:3000

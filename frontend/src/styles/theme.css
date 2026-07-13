@@ -1,0 +1,250 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+
+  --font-size: 16px;
+
+  --background: #f5f5f5;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f3f5;
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #6c6c7a;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --border-control: #767680;
+  --border-strong: rgba(0, 0, 0, 0.25);
+  --input-background: #f3f3f5;
+  --ring: #030213;
+  --overlay: rgba(0, 0, 0, 0.5);
+
+  --chart-1: #030213;
+  --chart-2: #8f8fa3;
+  --chart-3: #4b4b5c;
+  --chart-stroke: #ffffff;
+
+  --radius: 0rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-fast: 150ms;
+  --duration-enter: 200ms;
+  --duration-exit: 130ms;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --background: #0b0b0d;
+  --foreground: #f4f4f5;
+  --card: #141416;
+  --card-foreground: #f4f4f5;
+  --popover: #141416;
+  --popover-foreground: #f4f4f5;
+  --primary: #f4f4f5;
+  --primary-foreground: #0b0b0d;
+  --secondary: #202024;
+  --secondary-foreground: #f4f4f5;
+  --muted: #202024;
+  --muted-foreground: #a5a5ae;
+  --accent: #26262b;
+  --accent-foreground: #f4f4f5;
+  --destructive: #f87171;
+  --destructive-foreground: #0b0b0d;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-control: #6b6b76;
+  --border-strong: rgba(255, 255, 255, 0.25);
+  --input-background: #202024;
+  --ring: #f4f4f5;
+  --overlay: rgba(0, 0, 0, 0.7);
+
+  --chart-1: #f4f4f5;
+  --chart-2: #8a8a99;
+  --chart-3: #c4c4cf;
+  --chart-stroke: #141416;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-control: var(--border-control);
+  --color-border-strong: var(--border-strong);
+  --color-input-background: var(--input-background);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-size: var(--font-size);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'cv11';
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  button,
+  [role='button'],
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  select {
+    background-color: var(--card);
+    color: var(--foreground);
+  }
+
+  select option {
+    background-color: var(--card);
+    color: var(--foreground);
+  }
+
+  th,
+  td {
+    text-align: left;
+  }
+
+  ::selection {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes dialog-out {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .dialog-overlay[data-state='open'] {
+    animation: overlay-in var(--duration-enter) var(--ease-out);
+  }
+
+  .dialog-overlay[data-state='closed'] {
+    animation: overlay-out var(--duration-exit) var(--ease-out);
+  }
+
+  .dialog-content[data-state='open'] {
+    transform-origin: center;
+    animation: dialog-in var(--duration-enter) var(--ease-out);
+  }
+
+  .dialog-content[data-state='closed'] {
+    transform-origin: center;
+    animation: dialog-out var(--duration-exit) var(--ease-out);
+  }
+
+  .skeleton {
+    background-color: var(--muted);
+    animation: shimmer 1s var(--ease-in-out) infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

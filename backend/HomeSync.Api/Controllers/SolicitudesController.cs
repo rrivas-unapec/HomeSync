@@ -26,12 +26,21 @@ public class SolicitudesController : ControllerBase
         return Ok(solicitudes);
     }
 
+    /// <summary>Obtiene una solicitud de visita por su id. Solo administrador.</summary>
+    [Authorize(Roles = RolUsuario.Administrador)]
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<SolicitudDeVisitaDto>> ObtenerPorId(int id)
+    {
+        var solicitud = await _solicitudService.ObtenerPorIdAsync(id);
+        return Ok(solicitud);
+    }
+
     /// <summary>Crea una nueva solicitud de visita desde el catalogo publico (Vista 3). Acceso publico.</summary>
     [HttpPost]
     public async Task<ActionResult<SolicitudDeVisitaDto>> Crear([FromBody] SolicitudDeVisitaCreateDto dto)
     {
         var creada = await _solicitudService.CrearAsync(dto);
-        return Created($"api/solicitudes/{creada.Id}", creada);
+        return CreatedAtAction(nameof(ObtenerPorId), new { id = creada.Id }, creada);
     }
 
     /// <summary>Cambia el estado de una solicitud (pendiente/confirmada/completada). Solo administrador.</summary>

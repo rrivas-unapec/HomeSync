@@ -12,4 +12,9 @@ public class UsuarioRepository : GenericRepository<Usuario>, IUsuarioRepository
 
     public async Task<Usuario?> GetByCorreoAsync(string correo) =>
         await DbSet.FirstOrDefaultAsync(u => u.Correo == correo);
+
+    public async Task<IReadOnlyList<Usuario>> GetAllOrdenadosAsync() =>
+        await DbSet.AsNoTracking()
+                   .OrderByDescending(u => u.FechaCreacion)
+                   .ToListAsync();
 }

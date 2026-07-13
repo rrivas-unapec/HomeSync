@@ -15,7 +15,7 @@ public class AuditoriaPropiedadConfiguration : IEntityTypeConfiguration<Auditori
         builder.Property(a => a.Id).HasColumnName("id").ValueGeneratedOnAdd();
         builder.Property(a => a.PropiedadId).HasColumnName("propiedadid").IsRequired();
         builder.Property(a => a.UsuarioId).HasColumnName("usuarioid");
-        builder.Property(a => a.Accion).HasColumnName("accion").HasMaxLength(10).IsRequired();
+        builder.Property(a => a.Accion).HasColumnName("accion").HasMaxLength(15).IsRequired();
         builder.Property(a => a.DetallesCambio).HasColumnName("detallescambio").HasColumnType("text");
         builder.Property(a => a.FechaOperacion).HasColumnName("fechaoperacion").HasDefaultValueSql("getdate()");
 
