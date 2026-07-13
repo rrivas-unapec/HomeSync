@@ -86,11 +86,8 @@ var app = builder.Build();
 // --- Middleware pipeline ---
 app.UseMiddleware<ExceptionMiddleware>();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseCors(PoliticaCors);
@@ -99,5 +96,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/api/health", () => Results.Ok(new
+{
+    status = "ok",
+    service = "HomeSync API",
+    environment = app.Environment.EnvironmentName,
+    timestamp = DateTime.UtcNow
+}));
 
 app.Run();

@@ -1,5 +1,6 @@
 **/bin/
 **/obj/
-**/.vs/
-**/*.user
-db/
+.vs/
+.git/
+.gitignore
+README.md
